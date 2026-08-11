@@ -209,14 +209,10 @@ export default function MusicPlayer({
               transition: "background 300ms, box-shadow 300ms, transform 120ms, color 300ms, border-color 300ms",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = accentColor;
-              (e.currentTarget as HTMLElement).style.color = "#08080a";
               (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
               (e.currentTarget as HTMLElement).style.boxShadow = `0 0 15px ${accentColor}88`;
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = accentColor;
               (e.currentTarget as HTMLElement).style.transform = "scale(1)";
               (e.currentTarget as HTMLElement).style.boxShadow = `0 0 10px ${accentColor}33`;
             }}
