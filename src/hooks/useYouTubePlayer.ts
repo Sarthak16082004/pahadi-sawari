@@ -44,7 +44,7 @@ function loadYouTubeIframeAPI(): Promise<void> {
  * `state`. The iframe itself is rendered at 0x0 and never shown; our own
  * MusicPlayer UI is the only thing the person sees (spec section 8).
  */
-export function useYouTubePlayer(playlistId: string) {
+export function useYouTubePlayer(playlistId: string, onTrackEnded?: () => void) {
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const pollRef = useRef<number | null>(null);
@@ -102,12 +102,8 @@ export function useYouTubePlayer(playlistId: string) {
             } else if (e.data === YTS.PAUSED) {
               setState((s) => ({ ...s, status: "paused" }));
             } else if (e.data === YTS.ENDED) {
-              // Auto-advance to next track and keep playing
-              setState((s) => ({ ...s, status: "loading", videoTitle: "", channelTitle: "", currentTime: 0, duration: 0 }));
-              setTimeout(() => {
-                playerRef.current?.nextVideo?.();
-                setTimeout(() => playerRef.current?.playVideo?.(), 300);
-              }, 100);
+              // Let the parent orchestrate advancing the track so background state syncs
+              onTrackEnded?.();
             } else if (e.data === YTS.CUED) {
               readMeta();
             }
@@ -165,8 +161,7 @@ export function useYouTubePlayer(playlistId: string) {
       duration: 0,
     }));
     p.nextVideo?.();
-    // Force play after YouTube processes the switch (works even if was paused)
-    setTimeout(() => p.playVideo?.(), 400);
+    p.playVideo?.(); // Force play immediately
   }, []);
 
   const previous = useCallback(() => {
@@ -181,7 +176,7 @@ export function useYouTubePlayer(playlistId: string) {
       duration: 0,
     }));
     p.previousVideo?.();
-    setTimeout(() => p.playVideo?.(), 400);
+    p.playVideo?.();
   }, []);
   const seekTo = useCallback((t: number) => playerRef.current?.seekTo?.(t, true), []);
 

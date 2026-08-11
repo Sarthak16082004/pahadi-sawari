@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { useYouTubePlayer } from "../../hooks/useYouTubePlayer";
 import { useLiveListenerCount } from "../../hooks/useLiveListenerCount";
 import { pickBackgroundByIndex } from "../../data/backgrounds";
@@ -24,8 +24,11 @@ export default function AppShell() {
   // ─── Background index — increments instantly on next/prev click ───
   const [bgIndex, setBgIndex] = useState(0);
 
+  // We use a ref to safely call handleNext from inside the YouTube player hook without circular dependencies
+  const handleNextRef = useRef<() => void>();
+
   const { containerRef, state, togglePlay, next, previous, seekTo, toggleShuffle } =
-    useYouTubePlayer(PLAYLIST_ID);
+    useYouTubePlayer(PLAYLIST_ID, () => handleNextRef.current?.());
   const listenerCount = useLiveListenerCount();
 
   const roadPhrase = useMemo(
@@ -37,11 +40,15 @@ export default function AppShell() {
     if (state.status !== "loading") setBooting(false);
   }, [state.status]);
 
-  // Background switches IMMEDIATELY on button click, not waiting for YouTube
   const handleNext = useCallback(() => {
     next();
     setBgIndex((i) => i + 1);
   }, [next]);
+
+  // Keep ref synced
+  useEffect(() => {
+    handleNextRef.current = handleNext;
+  }, [handleNext]);
 
   const handlePrevious = useCallback(() => {
     previous();
