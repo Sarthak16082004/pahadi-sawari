@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800;900&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap");
+
+@theme {
+  --color-ember: #d2792f;
+  --color-ember-bright: #efa85c;
+  --color-pine: #14221e;
+  --color-pine-deep: #0d1613;
+  --color-teal: #4f8f89;
+  --color-cream: #f3efe5;
+  --color-charcoal: #14181a;
+  --color-signal: #7cc17f;
+
+  --font-display: "Baloo 2", "Noto Sans Devanagari", sans-serif;
+  --font-sans: "DM Sans", "Noto Sans Devanagari", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100svh;
+}
+
+body {
+  background: var(--color-pine-deep);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+}
+
+/* Focus states visible for keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--color-ember-bright);
+  outline-offset: 2px;
+}
+
+/* Smooth color transitions on accent elements */
+* {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-timing-function: ease-out;
+}
+
+/* Glow pulse for the live indicator dot */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px currentColor; }
+  50% { opacity: 0.55; box-shadow: 0 0 12px currentColor; }
+}
+
+.animate-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}

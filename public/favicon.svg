@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Sky gradient background -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a5c"/>
+      <stop offset="60%" stop-color="#d2792f"/>
+      <stop offset="100%" stop-color="#efa85c"/>
+    </linearGradient>
+    <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3efe5"/>
+      <stop offset="40%" stop-color="#c8d8e0"/>
+      <stop offset="100%" stop-color="#4f8f89"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e5c44"/>
+      <stop offset="100%" stop-color="#14221e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background sky -->
+  <rect width="64" height="64" rx="14" fill="url(#sky)"/>
+
+  <!-- Sun/moon glow -->
+  <circle cx="32" cy="22" r="7" fill="#efa85c" opacity="0.5"/>
+  <circle cx="32" cy="22" r="4" fill="#f8d08a" opacity="0.8"/>
+
+  <!-- Distant snow peak (back) -->
+  <polygon points="18,42 32,10 46,42" fill="url(#peak)" opacity="0.9"/>
+
+  <!-- Snow cap highlight -->
+  <polygon points="28,18 32,10 36,18 32,16" fill="white" opacity="0.95"/>
+
+  <!-- Left ridge -->
+  <polygon points="0,64 0,40 14,28 26,44 18,44 32,32 32,64" fill="url(#ridge)"/>
+
+  <!-- Right ridge -->
+  <polygon points="64,64 64,40 50,28 38,44 46,44 32,32 32,64" fill="url(#ridge)" opacity="0.85"/>
+
+  <!-- Road line -->
+  <path d="M24 64 Q32 52 40 64" stroke="#efa85c" stroke-width="1.5" stroke-opacity="0.7" fill="none"/>
+  <path d="M28 64 Q32 56 36 64" stroke="#f3efe5" stroke-width="0.8" stroke-opacity="0.5" fill="none"/>
+</svg>
