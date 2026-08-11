@@ -25,7 +25,7 @@ export default function AppShell() {
   const [bgIndex, setBgIndex] = useState(0);
 
   // We use a ref to safely call handleNext from inside the YouTube player hook without circular dependencies
-  const handleNextRef = useRef<() => void>();
+  const handleNextRef = useRef<(() => void) | undefined>(undefined);
 
   const { containerRef, state, togglePlay, next, previous, seekTo, toggleShuffle } =
     useYouTubePlayer(PLAYLIST_ID, () => handleNextRef.current?.());
